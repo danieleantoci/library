@@ -17,4 +17,11 @@ public interface BookMapper {
     @Mappings({
             @Mapping(target = "authors", expression = "java(null)")})
     Book fromDtoWithoutAuthor(BookDTO bookDTO);
+
+    @Named("toDto")
+    @Mappings({
+        @Mapping(target = "id", ignore = true),
+        @Mapping(target = "authors", ignore = true),
+    })
+    BookDTO toDto(Book book);
 }
