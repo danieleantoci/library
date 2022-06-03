@@ -1,7 +1,6 @@
 package com.eleinad.gym.model;
 
 import com.eleinad.gym.types.Language;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.util.List;

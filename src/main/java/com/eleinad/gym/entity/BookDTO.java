@@ -1,7 +1,6 @@
 package com.eleinad.gym.entity;
 
 import com.eleinad.gym.types.Language;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;

@@ -1,7 +1,7 @@
 package com.eleinad.gym.api;
 
-import com.eleinad.gym.model.Author;
-import com.eleinad.gym.service.AuthorService;
+import com.eleinad.gym.model.Book;
+import com.eleinad.gym.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/authors")
-public class AuthorAPI {
+@RequestMapping("/books")
+public class BookAPI {
 
-    private final AuthorService authorService;
+    private final BookService bookService;
 
     @Autowired
-    public AuthorAPI(AuthorService authorService) {
-        this.authorService = authorService;
+    public BookAPI(BookService bookService) {
+        this.bookService = bookService;
     }
 
     @GetMapping
     @ResponseBody
-    public List<Author> getAuthors() {
-        return authorService.findAll();
+    public List<Book> findAll() {
+        return bookService.findAll();
     }
 }

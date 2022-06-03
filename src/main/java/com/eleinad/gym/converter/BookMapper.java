@@ -9,8 +9,8 @@ import org.mapstruct.*;
 public interface BookMapper {
 
     @Named("fromDto")
-//    @Mappings({
-//            @Mapping(target = "author", qualifiedByName = {"AuthorMapper", "fromDtoWithoutBook"})})
+    @Mappings({
+            @Mapping(target = "authors", qualifiedByName = {"AuthorMapper", "fromDtoWithoutBook"})})
     Book fromDto(BookDTO bookDTO);
 
     @Named("fromDtoWithoutAuthor")

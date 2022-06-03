@@ -13,11 +13,16 @@ import java.util.stream.Collectors;
 @Service
 public class AuthorService {
 
-    @Autowired
-    private AuthorRepository authorRepo;
+
+    private final AuthorRepository authorRepo;
+    private final AuthorMapper mapper;
 
     @Autowired
-    private AuthorMapper mapper;
+    public AuthorService(AuthorRepository authorRepo, AuthorMapper mapper) {
+        this.authorRepo = authorRepo;
+        this.mapper = mapper;
+    }
+
 
     public List<Author> findAll() {
         final List<AuthorDTO> authorDTOs = authorRepo.findAll();
