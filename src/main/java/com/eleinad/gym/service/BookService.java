@@ -1,15 +1,14 @@
 package com.eleinad.gym.service;
 
 import com.eleinad.gym.converter.BookMapper;
-import com.eleinad.gym.entity.AuthorDTO;
-import com.eleinad.gym.entity.BookDTO;
-import com.eleinad.gym.model.Book;
+import com.eleinad.gym.entity.Author;
+import com.eleinad.gym.entity.Book;
+import com.eleinad.gym.model.BookDTO;
 import com.eleinad.gym.repo.AuthorRepository;
 import com.eleinad.gym.repo.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -28,24 +27,24 @@ public class BookService {
         this.mapper = mapper;
     }
 
-    public List<Book> findAll() {
+    public List<BookDTO> findAll() {
         return bookRepo
                 .findAll()
                 .stream()
-                .map(mapper::fromDto)
+                .map(mapper::toDTO)
                 .collect(Collectors.toList());
     }
 
-    public void createBook(Book book) {
-        final BookDTO bookDTO = mapper.toDto(book);
-        List<AuthorDTO> authors = Arrays
-                .stream(book.getAuthorsID().split(","))
+    public void createBook(BookDTO bookDTO) {
+        final Book book = mapper.fromDTO(bookDTO);
+        List<Author> authors = Arrays
+                .stream(bookDTO.getAuthorsID().split(","))
                 .map(s -> authorRepo.findById(Long.parseLong(s)))
                 .filter(Optional::isPresent)
                 .map(Optional::get)
-                .peek(authorDTO -> authorDTO.addBook(bookDTO))
+                .peek(authorDTO -> authorDTO.addBook(book))
                 .collect(Collectors.toList());
-        bookDTO.setAuthors(authors);
-        bookRepo.save(bookDTO);
+        book.setAuthors(authors);
+        bookRepo.save(book);
     }
 }

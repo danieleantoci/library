@@ -1,8 +1,8 @@
 package com.eleinad.gym.service;
 
 import com.eleinad.gym.converter.AuthorMapper;
-import com.eleinad.gym.entity.AuthorDTO;
-import com.eleinad.gym.model.Author;
+import com.eleinad.gym.entity.Author;
+import com.eleinad.gym.model.AuthorDTO;
 import com.eleinad.gym.repo.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,11 +24,11 @@ public class AuthorService {
     }
 
 
-    public List<Author> findAll() {
-        final List<AuthorDTO> authorDTOs = authorRepo.findAll();
-        return authorDTOs
+    public List<AuthorDTO> findAll() {
+        final List<Author> authors = authorRepo.findAll();
+        return authors
                 .stream()
-                .map(mapper::fromDTO)
+                .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
 

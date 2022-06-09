@@ -1,27 +1,29 @@
 package com.eleinad.gym.converter;
 
-import com.eleinad.gym.entity.BookDTO;
-import com.eleinad.gym.model.Book;
+import com.eleinad.gym.entity.Book;
+import com.eleinad.gym.model.BookDTO;
 import org.mapstruct.*;
 
 @Named("BookMapper")
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = {AuthorMapper.class})
 public interface BookMapper {
 
-    @Named("fromDto")
+    @Named("toDTO")
     @Mappings({
-            @Mapping(target = "authors", qualifiedByName = {"AuthorMapper", "fromDtoWithoutBook"})})
-    Book fromDto(BookDTO bookDTO);
+            @Mapping(source = "authors", target = "authorDTOs", qualifiedByName = {"AuthorMapper", "toDtoWithoutBook"}),
+            @Mapping(target = "authorsID", ignore = true)})
+    BookDTO toDTO(Book book);
 
-    @Named("fromDtoWithoutAuthor")
+    @Named("toDtoWithoutAuthor")
     @Mappings({
-            @Mapping(target = "authors", expression = "java(null)")})
-    Book fromDtoWithoutAuthor(BookDTO bookDTO);
+            @Mapping(target = "authorDTOs", ignore = true, expression = "java(null)"),
+            @Mapping(target = "authorsID", ignore = true)})
+    BookDTO toDtoWithoutAuthor(Book book);
 
     @Named("toDto")
     @Mappings({
-        @Mapping(target = "id", ignore = true),
-        @Mapping(target = "authors", ignore = true),
+            @Mapping(target = "id", ignore = true),
+            @Mapping(target = "authors", ignore = true),
     })
-    BookDTO toDto(Book book);
+    Book fromDTO(BookDTO bookDTO);
 }

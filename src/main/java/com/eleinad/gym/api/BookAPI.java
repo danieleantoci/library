@@ -1,6 +1,6 @@
 package com.eleinad.gym.api;
 
-import com.eleinad.gym.model.Book;
+import com.eleinad.gym.model.BookDTO;
 import com.eleinad.gym.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,14 +21,14 @@ public class BookAPI {
 
     @GetMapping
     @ResponseBody
-    public List<Book> findAll() {
+    public List<BookDTO> findAll() {
         return bookService.findAll();
     }
 
     @PostMapping(path = "/add",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public void createBook(@RequestBody Book book) {
-        bookService.createBook(book);
+    public void createBook(@RequestBody BookDTO bookDTO) {
+        bookService.createBook(bookDTO);
     }
 }

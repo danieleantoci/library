@@ -11,7 +11,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Data
 @Entity(name = "BOOK")
-public class BookDTO {
+public class Book {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -28,5 +28,5 @@ public class BookDTO {
     private Language language;
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "books")
     @NotNull
-    private List<AuthorDTO> authors;
+    private List<Author> authors;
 }

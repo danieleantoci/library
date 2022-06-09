@@ -1,7 +1,6 @@
 package com.eleinad.gym.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,7 +13,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Data
 @Entity(name = "AUTHOR")
-public class AuthorDTO {
+public class Author {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -26,12 +25,12 @@ public class AuthorDTO {
             joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "author_id",
                     referencedColumnName = "id"))
-    private List<BookDTO> books;
+    private List<Book> books;
 
     @Transient
     @JsonIgnore
-    public void addBook(BookDTO book) {
-        List<BookDTO> books = getBooks();
+    public void addBook(Book book) {
+        List<Book> books = getBooks();
         if(Objects.isNull(books)) {
             books = new ArrayList<>();
         }

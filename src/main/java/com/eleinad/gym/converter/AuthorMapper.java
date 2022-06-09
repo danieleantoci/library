@@ -1,21 +1,21 @@
 package com.eleinad.gym.converter;
 
-import com.eleinad.gym.entity.AuthorDTO;
-import com.eleinad.gym.model.Author;
+import com.eleinad.gym.entity.Author;
+import com.eleinad.gym.model.AuthorDTO;
 import org.mapstruct.*;
 
 @Named("AuthorMapper")
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = {BookMapper.class})
 public interface AuthorMapper {
 
-    @Named("fromDto")
+    @Named("toDto")
     @Mappings({
-            @Mapping(target = "books", qualifiedByName = {"BookMapper", "fromDtoWithoutAuthor"})})
-    Author fromDTO(AuthorDTO authorDTO);
+            @Mapping(source = "books", target = "bookDTOs", qualifiedByName = {"BookMapper", "toDtoWithoutAuthor"})})
+    AuthorDTO toDto(Author author);
 
-    @Named("fromDtoWithoutBook")
+    @Named("toDtoWithoutBook")
     @Mappings({
-            @Mapping(target = "books", expression = "java(null)")})
-    Author fromDtoWithoutBook(AuthorDTO authorDTO);
+            @Mapping(target = "bookDTOs", expression = "java(null)")})
+    AuthorDTO toDtoWithoutBook(Author author);
 
 }

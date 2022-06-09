@@ -1,6 +1,6 @@
 package com.eleinad.gym.api;
 
-import com.eleinad.gym.model.Author;
+import com.eleinad.gym.model.AuthorDTO;
 import com.eleinad.gym.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +23,7 @@ public class AuthorAPI {
 
     @GetMapping
     @ResponseBody
-    public List<Author> getAuthors() {
+    public List<AuthorDTO> getAuthors() {
         return authorService.findAll();
     }
 }
